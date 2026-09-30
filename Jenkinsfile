@@ -40,3 +40,22 @@ pipeline {
 
 
    }
+
+
+   // Post-actions (opcional)
+   post {
+       always {
+           emailext (
+               subject: "Pipeline ${currentBuild.result}: ucp-app-react #${env.BUILD_NUMBER}",
+               body: """
+                   Estado: ${currentBuild.result}
+                   URL Build: ${env.BUILD_URL}
+                   Detalles de Pruebas: ${env.BUILD_URL}testReport/
+               """,
+               to: 'dawian85@gmail.com' // Reemplaza con tu email
+           )
+       }
+   }
+
+
+}
